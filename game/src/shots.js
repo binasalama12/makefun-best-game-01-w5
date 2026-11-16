@@ -33,18 +33,18 @@ export function stageShot(world, name) {
     world.state = 'play';
     world.paddle.x = 505;
     world.launch();
-    step(world, 55, { ...idleInput, mouseX: 505 });
-    // A lively mid-rally frame: a bite taken out of the wall, one capsule
-    // falling, combo already warm.
-    breakBrickAt(world, 3, 4);
-    breakBrickAt(world, 3, 5);
-    breakBrickAt(world, 2, 5);
-    breakBrickAt(world, 4, 3);
+    // A short rally only: the ball is still mid-flight with its trail lit,
+    // the wall nearly intact with a fresh bite taken out of its lower rows.
+    step(world, 27, { ...idleInput, mouseX: 505 });
+    breakBrickAt(world, 5, 4);
+    breakBrickAt(world, 5, 5);
+    breakBrickAt(world, 4, 5);
     world.combo = 9;
     world.score = 1450;
+    world.nova = 46;
     world.dropPowerup(760, 330);
-    step(world, 26, { ...idleInput, mouseX: 560 });
-    world.paddle.x = 560;
+    step(world, 4, { ...idleInput, mouseX: 520 });
+    world.paddle.x = 520;
     return;
   }
   if (name === 'feature') {
@@ -63,9 +63,12 @@ export function stageShot(world, name) {
     world.bolts.push({ x: 640 - PADDLE.w / 2 + 14, y: 380, vy: -780 });
     breakBrickAt(world, 3, 4); // the core — chains into its neighbours
     world.dropPowerup(915, 300);
+    // Nova charged and glowing on the meter, not yet fired: the flash of a
+    // fired Nova washes the whole frame out, so the meter carries it instead.
     world.nova = 100;
-    world.fireNova();
-    step(world, 7, { ...idleInput, mouseX: 640, fireHeld: true });
+    world.banner = 'MULTIBALL + LASERS — NOVA READY!';
+    world.bannerT = 1.4;
+    step(world, 5, { ...idleInput, mouseX: 640, fireHeld: true });
     return;
   }
   // end
@@ -82,6 +85,7 @@ export function stageShot(world, name) {
   world.brokenTotal = 23;
   world.maxCombo = 19;
   world.lives = 0;
+  world.balls = [];
   world.state = 'over';
   step(world, 12, { ...idleInput, mouseX: 700 });
 }

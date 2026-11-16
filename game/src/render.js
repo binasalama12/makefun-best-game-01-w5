@@ -347,9 +347,9 @@ export class Renderer {
     ctx.restore();
   }
 
-  panel(world, title, titleColor) {
+  panel(world, title, titleColor, alpha = 0.55) {
     const { ctx } = this;
-    ctx.fillStyle = 'rgba(5,3,16,0.55)';
+    ctx.fillStyle = `rgba(5,3,16,${alpha})`;
     ctx.fillRect(0, 0, VIEW.w, VIEW.h);
     ctx.save();
     ctx.textAlign = 'center';
@@ -362,7 +362,7 @@ export class Renderer {
   }
 
   title(world) {
-    this.panel(world, 'PRISM BREAKER', '#7dd7ff');
+    this.panel(world, 'PRISM BREAKER', '#7dd7ff', 0.42);
     const { ctx } = this;
     ctx.save();
     ctx.textAlign = 'center';
